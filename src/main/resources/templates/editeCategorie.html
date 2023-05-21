@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="template" >
+<head>
+  <meta charset="UTF-8">
+  <title>modifier produit</title>
+</head>
+<section layout:fragment="contentBody">
+  <div class="container">
+    <h2>Edit Produit</h2>
+    <form method="post" th:action="@{/editeProduit(page=${page},key=${key})}">
+      <div class="form-group">
+        <label for="idCat">ID</label>
+        <input type="text" class="form-control" id="idCat" name="idCat" th:value="${categorie.idCat}" readonly="readonly"/>
+      </div>
+      <div class="form-group">
+        <label for="nom">Nom Categorie</label>
+        <input type="text" class="form-control" id="nom" name="nom" th:value="${categorie.nom}" >
+      </div>
+      <div class="form-group">
+        <label for="descriptionCat">Description</label>
+        <input type="text" class="form-control" id="descriptionCat" name="descriptionCat" th:value="${categorie.descriptionCat}" >
+      </div>
+      <button type="submit"  class="btn btn-primary">Update</button>
+      <a href="/listeCategorie" class="btn btn-default">Cancel</a>
+    </form>
+  </div>
+</section>
+</body>
+</html>

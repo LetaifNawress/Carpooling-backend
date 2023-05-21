@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="template" >
+<head>
+    <meta charset="UTF-8">
+    <title>modifier produit</title>
+</head>
+<section layout:fragment="contentBody">
+    <div class="container">
+        <h2>Edit Produit</h2>
+        <form method="post" th:action="@{/editeProduit(page=${page},key=${key})}">
+            <div class="form-group">
+                <label for="idProduit">ID</label>
+                <input type="text" class="form-control" id="idProduit" name="idProduit" th:value="${produit.idProduit}" readonly="readonly"/>
+            </div>
+            <div class="form-group">
+                <label for="nom">Nom Produit</label>
+                <input type="text" class="form-control" id="nom" name="nom" th:value="${produit.nom}" >
+            </div>
+            <div class="form-group">
+                <label for="prixProduit">Prix</label>
+                <input type="number" class="form-control" id="prixProduit" name="prixProduit" th:value="${produit.prixProduit}" >
+            </div>
+            <div class="form-group">
+                <label for="date">Date de création (yyyy-mm-dd)</label>
+                <input type="date" class="form-control" id="date" name="dateCreation" th:value="${produit.dateCreation}">
+            </div>
+            <input type="hidden" name="idCategorie" th:value="${produit.categorie.idCat}" />
+            <button type="submit"  class="btn btn-primary">Update</button>
+            <a href="/listeProduits" class="btn btn-default">Cancel</a>
+        </form>
+    </div>
+</section>
+</body>
+</html>

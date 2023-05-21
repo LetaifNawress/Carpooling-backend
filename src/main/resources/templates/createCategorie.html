@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="template" >
+<head>
+  <meta charset="UTF-8">
+  <title>Create produit</title>
+</head>
+<body>
+<section layout:fragment="contentBody">
+  <div class="container">
+    <div class="card-body">
+      <form method="post" th:action="@{/saveCat}">
+        <div class="form-group">
+          <h2>Ajouter une Catégorie</h2>
+        </div>
+        <div class="form-group">
+          <label class="control-label">Nom Categorie :</label>
+          <input type="text" name="nom" class="form-control"
+                 th:value="${categorie.nom}"/>
+          <span th:errors="${categorie.nom}" class="text-danger"> </span>
+        </div>
+        <div class="form-group">
+          <label class="control-label">Description :</label>
+          <input type="text" name="descriptionCat" class="form-control"
+                 th:value="${categorie.descriptionCat}" />
+          <span th:errors="${categorie.descriptionCat}" class="text-danger"> </span>
+        </div>
+        <div>
+          <button type="submit" class="btn btn-primary">Ajouter</button>
+        </div>
+      </form>
+    </div>
+    <br/>
+    <br/>
+  </div>
+</section>
+</body>
+</html>

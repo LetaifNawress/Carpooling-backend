@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="template" >
+<head>
+    <meta charset="UTF-8">
+    <title>Create produit</title>
+</head>
+<body>
+<section layout:fragment="contentBody">
+    <div class="container">
+        <div class="card-body">
+            <form method="POST" th:action="@{/saveProduit}">
+                <div class="form-group">
+                    <h2>Ajouter un Produit</h2>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Nom Produit :</label>
+                    <input type="text" name="nom" class="form-control"
+                    th:value="${produit.nom}"/>
+                    <span th:errors="${produit.nom}" class="text-danger"> </span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Prix Produit :</label>
+                    <input type="text" name="prixProduit" class="form-control"
+                    th:value="${produit.prixProduit}" />
+                    <span th:errors="${produit.prixProduit}" class="text-danger"> </span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">date création :</label>
+                    <input type="date" name="dateCreation" class="form-control" th:value="${produit.dateCreation}"/>
+                    <span th:errors="${produit.dateCreation}" class="text-danger"> </span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Categorie :</label>
+                    <select name="categorie" class="form-control">
+                        <option th:value="${null}">--Please select a category--</option>
+                        <option th:each="categorie : ${categories}"
+                                th:value="${categorie.idCat}"
+                                th:text="${categorie.nom}">
+                        </option>
+                    </select>
+                    <span th:errors="${produit.categorie}" class="text-danger"> </span>
+                </div>
+                <div>
+                    <button type="submit" class="btn btn-primary">Ajouter</button>
+                </div>
+            </form>
+        </div>
+        <br/>
+        <br/>
+    </div>
+</section>
+</body>
+</html>
