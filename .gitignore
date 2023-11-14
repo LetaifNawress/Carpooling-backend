@@ -1,0 +1,5 @@
+# Project exclude paths
+/Driver-service/target/
+/EurekaService/target/
+/gateway/target/
+/identity-service/target/
