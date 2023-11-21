@@ -63,7 +63,7 @@ public class AuthController {
 
                 UserApp user = userOptional.get();
 
-                // Generate the token with the user ID
+                // Generate the token with the user
                 String token = service.generateToken(userDetails.getUsername(), Long.valueOf(user.getId()));
 
                 // Return the token as a JSON object id
