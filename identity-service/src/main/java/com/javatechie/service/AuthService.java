@@ -5,6 +5,7 @@ import com.javatechie.entity.UserApp;
 import com.javatechie.repository.RoleRepository;
 import com.javatechie.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -32,13 +33,15 @@ public class AuthService {
         return "UserApp added to the system with the role: " + roleName;
     }
 
-    public String generateToken(String username) {
-        return jwtService.generateToken(username);
+    public String generateToken(String username, Long userId) {
+        return jwtService.generateToken(username, userId);
     }
+
 
     public void validateToken(String token) {
         jwtService.validateToken(token);
     }
+
 
 
 }

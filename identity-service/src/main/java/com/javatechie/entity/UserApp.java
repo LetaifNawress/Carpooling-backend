@@ -20,6 +20,8 @@ public class UserApp {
     private String name;
     private String email;
     private String password;
+    @Lob
+    private byte[] profileImage;
     @ManyToOne
     @JoinColumn(name = "role_id")
     private Role role;

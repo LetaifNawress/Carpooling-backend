@@ -13,9 +13,13 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.util.List;
+import java.io.IOException;
+import java.util.*;
 
 @RestController
 @RequestMapping("/auth")
@@ -27,6 +31,7 @@ public class AuthController {
     private UserRepository userRepository;
     @Autowired
     private AuthenticationManager authenticationManager;
+
     @GetMapping("/all")
     public List<UserApp> getAllUsers() {
         return userRepository.findAll();
@@ -38,33 +43,102 @@ public class AuthController {
         user.setName(userDTO.getName());
         user.setEmail(userDTO.getEmail());
         user.setPassword(userDTO.getPassword());
-
+        // Set the profile image only if it's not null
+        if (userDTO.getProfileImage() != null) {
+            user.setProfileImage(userDTO.getProfileImage());
+        }
         return service.saveUser(user, roleName);
     }
 
     @PostMapping("/token")
-    public ResponseEntity<String> getToken(@RequestBody AuthRequest authRequest) {
+    public ResponseEntity<Map<String, Object>> getToken(@RequestBody AuthRequest authRequest) {
         try {
             Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
             if (authenticate.isAuthenticated()) {
-                return ResponseEntity.ok(service.generateToken(authRequest.getUsername()));
+                // Get the authenticated user's details
+                UserDetails userDetails = (UserDetails) authenticate.getPrincipal();
+
+                // Find the user by username to get the user ID
+                Optional<UserApp> userOptional = userRepository.findByName(userDetails.getUsername());
+
+                UserApp user = userOptional.get();
+
+                // Generate the token with the user ID
+                String token = service.generateToken(userDetails.getUsername(), Long.valueOf(user.getId()));
+
+                // Return the token as a JSON object
+                Map<String, Object> response = new HashMap<>();
+                response.put("token", token);
+                response.put("userId", Long.valueOf(user.getId()));
+
+                return ResponseEntity.ok(response);
             } else {
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Collections.singletonMap("error", "Invalid credentials"));
             }
         } catch (AuthenticationException e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Authentication failed: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Collections.singletonMap("error", "Authentication failed: " + e.getMessage()));
         }
     }
+
+
+
 
     @GetMapping("/validate")
     public String validateToken(@RequestParam("token") String token) {
         service.validateToken(token);
         return "Token is valid";
     }
+    @GetMapping("/user/{id}")
+    public ResponseEntity<UserDTO> getUserById(@PathVariable Long id) {
+        Optional<UserApp> userOptional = userRepository.findById(id);
+        if (userOptional.isPresent()) {
+            UserApp user = userOptional.get();
+            UserDTO userDTO = new UserDTO();
+            // Map fields from UserApp to UserDTO
+            userDTO.setName(user.getName());
+            userDTO.setEmail(user.getEmail());
+            userDTO.setProfileImage(user.getProfileImage());
+            // Map additional fields...
+
+            return ResponseEntity.ok(userDTO);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+
 
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/admin")
     public String adminEndpoint() {
         return "This is an admin endpoint";
     }
+
+    @PostMapping("/uploed_image/{id}")
+    public ResponseEntity<String> setImageById(@PathVariable Long id, @RequestParam("file") MultipartFile file) {
+        // Check if the user with the given ID exists
+        Optional<UserApp> userOptional = userRepository.findById(id);
+        if (userOptional.isPresent()) {
+            UserApp user = userOptional.get();
+
+            // Example: Save the image to the database or file system
+            // Replace this with your actual logic
+            try {
+                byte[] imageBytes = file.getBytes();
+                user.setProfileImage(imageBytes);
+                userRepository.save(user);
+
+                return ResponseEntity.ok("Image set successfully");
+            } catch (IOException e) {
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to set image");
+            }
+        } else {
+            // User with the given ID not found
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+
+
+
 }
