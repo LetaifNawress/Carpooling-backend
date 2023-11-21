@@ -66,7 +66,7 @@ public class AuthController {
                 // Generate the token with the user ID
                 String token = service.generateToken(userDetails.getUsername(), Long.valueOf(user.getId()));
 
-                // Return the token as a JSON object
+                // Return the token as a JSON object id
                 Map<String, Object> response = new HashMap<>();
                 response.put("token", token);
                 response.put("userId", Long.valueOf(user.getId()));
