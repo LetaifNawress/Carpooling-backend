@@ -15,6 +15,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -31,6 +32,8 @@ public class AuthController {
     private UserRepository userRepository;
     @Autowired
     private AuthenticationManager authenticationManager;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @GetMapping("/all")
     public List<UserApp> getAllUsers() {
@@ -69,7 +72,8 @@ public class AuthController {
                 // Return the token as a JSON object id
                 Map<String, Object> response = new HashMap<>();
                 response.put("token", token);
-                response.put("userId", Long.valueOf(user.getId()));
+                response.put("userId", user.getId()); // Assuming user.getId() is already a Long
+
 
                 return ResponseEntity.ok(response);
             } else {
@@ -88,25 +92,6 @@ public class AuthController {
         service.validateToken(token);
         return "Token is valid";
     }
-    @GetMapping("/user/{id}")
-    public ResponseEntity<UserDTO> getUserById(@PathVariable Long id) {
-        Optional<UserApp> userOptional = userRepository.findById(id);
-        if (userOptional.isPresent()) {
-            UserApp user = userOptional.get();
-            UserDTO userDTO = new UserDTO();
-            // Map fields from UserApp to UserDTO
-            userDTO.setName(user.getName());
-            userDTO.setEmail(user.getEmail());
-            userDTO.setProfileImage(user.getProfileImage());
-            // Map additional fields...
-
-            return ResponseEntity.ok(userDTO);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
-
-
 
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/admin")
@@ -114,31 +99,62 @@ public class AuthController {
         return "This is an admin endpoint";
     }
 
-    @PostMapping("/uploed_image/{id}")
-    public ResponseEntity<String> setImageById(@PathVariable Long id, @RequestParam("file") MultipartFile file) {
-        // Check if the user with the given ID exists
-        Optional<UserApp> userOptional = userRepository.findById(id);
-        if (userOptional.isPresent()) {
-            UserApp user = userOptional.get();
+        @PostMapping("/upload_image/{id}")
+        public ResponseEntity<String> setImageById(@PathVariable Long id, @RequestParam("file") MultipartFile file) {
+            // Check if the user with the given ID exists
+            Optional<UserApp> userOptional = userRepository.findById(id);
 
-            // Example: Save the image to the database or file system
-            // Replace this with your actual logic
-            try {
-                byte[] imageBytes = file.getBytes();
-                user.setProfileImage(imageBytes);
-                userRepository.save(user);
+            if (userOptional.isPresent()) {
+                UserApp user = userOptional.get();
 
-                return ResponseEntity.ok("Image set successfully");
-            } catch (IOException e) {
-                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to set image");
+                try {
+                    byte[] imageBytes = file.getBytes();
+                    user.setProfileImage(imageBytes);
+
+                    // Save the updated user to the database
+                    userRepository.save(user);
+
+                    return ResponseEntity.ok("Image set successfully");
+                } catch (IOException e) {
+                    e.printStackTrace(); // Add this line to log the exception details
+                    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to set image");
+                }
+
+            } else {
+                // User with the given ID not found
+                return ResponseEntity.notFound().build();
             }
-        } else {
-            // User with the given ID not found
-            return ResponseEntity.notFound().build();
         }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<UserApp> getUserById(@PathVariable Long id) {
+        Optional<UserApp> userOptional = userRepository.findById(id);
+        return userOptional.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
 
+    @PutMapping("/{id}")
+    public ResponseEntity<String> updateUser(@PathVariable Long id, @RequestBody UserApp updatedUser) {
+        Optional<UserApp> userOptional = userRepository.findById(id);
 
+        if (userOptional.isPresent()) {
+            UserApp user = userOptional.get();
+
+            // Update user information based on the fields you want to allow the user to update
+            user.setName(updatedUser.getName());
+            user.setEmail(updatedUser.getEmail());
+            // Check if the password is provided before updating
+            if (updatedUser.getPassword() != null && !updatedUser.getPassword().isEmpty()) {
+                user.setPassword(passwordEncoder.encode(updatedUser.getPassword())); // Encrypt the password
+            }
+
+       // Update profile image
+            userRepository.save(user);
+
+            return ResponseEntity.ok("User information updated successfully");
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 
 }

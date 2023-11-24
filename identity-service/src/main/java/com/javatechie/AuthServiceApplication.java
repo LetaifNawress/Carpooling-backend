@@ -49,6 +49,13 @@ public class AuthServiceApplication {
 		adminUser.setPassword(passwordEncoder.encode("123"));
 		adminUser.setRole(DRIVER);
 		userRepository.save(DRIVER1);
+
+		UserApp user = new UserApp();
+		user.setName("naim");
+		user.setEmail("driver@driver.com");
+		user.setPassword(passwordEncoder.encode("123"));
+		user.setRole(DRIVER);
+		userRepository.save(user);
 	}
 }
 
