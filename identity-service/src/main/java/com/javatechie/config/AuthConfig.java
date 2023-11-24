@@ -27,7 +27,8 @@ public class AuthConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/auth/register", "/auth/token", "/auth/validate", "/h2-console/**"," /auth/all","/auth/upload_image/{id}","/auth/{id}").permitAll()
+                .antMatchers("/auth/register", "/auth/token", "/auth/validate", "/h2-console/**",
+                        " /auth/all","/auth/upload_image/{id}","/auth/{id}","/auth/count","/auth/countByRole").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .headers().frameOptions().disable();

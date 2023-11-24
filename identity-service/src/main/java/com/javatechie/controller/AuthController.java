@@ -2,6 +2,7 @@ package com.javatechie.controller;
 
 import com.javatechie.dto.AuthRequest;
 import com.javatechie.dto.UserDTO;
+import com.javatechie.entity.Role;
 import com.javatechie.entity.UserApp;
 import com.javatechie.repository.UserRepository;
 import com.javatechie.service.AuthService;
@@ -13,7 +14,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/auth")
@@ -39,6 +40,23 @@ public class AuthController {
     public List<UserApp> getAllUsers() {
         return userRepository.findAll();
     }
+    @GetMapping("/count")
+    public long countAllUsers() {
+        return userRepository.count();
+    }
+    @GetMapping("/countByRole")
+    public Map<String, Long> countUsersByRole() {
+        List<UserApp> users = userRepository.findAll();
+
+        Map<String, Long> countByRole = new HashMap<>();
+        for (UserApp user : users) {
+            String role = String.valueOf(user.getRole());
+            // Otherwise, increment the count for that role
+            countByRole.put(role, countByRole.getOrDefault(role, 0L) + 1);
+        }
+        return countByRole;
+    }
+
     @PostMapping("/register")
     public String addNewUser(@RequestBody UserDTO userDTO) {
         String roleName = userDTO.getRoleName();
