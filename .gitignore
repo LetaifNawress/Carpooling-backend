@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar
@@ -31,3 +32,10 @@ build/
 
 ### VS Code ###
 .vscode/
+=======
+# Project exclude paths
+/Driver-service/target/
+/EurekaService/target/
+/gateway/target/
+/identity-service/target/
+>>>>>>> 037203222082135b3799dd697ced26798f45fe6d
