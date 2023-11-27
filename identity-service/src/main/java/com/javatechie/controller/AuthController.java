@@ -7,6 +7,7 @@ import com.javatechie.entity.UserApp;
 import com.javatechie.repository.UserRepository;
 import com.javatechie.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -22,7 +23,8 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
-
+@CrossOrigin(origins = "http://localhost:4200")
+@RefreshScope
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
