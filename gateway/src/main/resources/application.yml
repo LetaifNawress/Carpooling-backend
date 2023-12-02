@@ -3,8 +3,8 @@ spring:
    gateway:
      routes:
 
-       - id: Driver-service
-         uri: lb://DRIVER-SERVICE
+       - id: COVOITURAGE-service
+         uri: lb://COVOITURAGE-SERVICE
          predicates:
            - Path=/driver/**
          filters:
@@ -15,10 +15,17 @@ spring:
          predicates:
            - Path=/auth/**
 
- application:
-   name: GATEWAY
+       - id: res_service
+         uri: lb://RES_SERVICE
+         predicates:
+           - Path=/participation
+
+application:
+  name: GATEWAY
+  allowedOrigins:
+    - "http://localhost:4200"
 
 eureka:
   client:
     service-url:
-      defaultZone : http://localhost:8761/eureka/
+      defaultZone: http://localhost:8761/eureka/
