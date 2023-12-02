@@ -36,9 +36,9 @@ public class AuthServiceApplication {
 		Role DRIVER = new Role();
 		DRIVER.setName("DRIVER");
 		roleRepository.save(DRIVER);
-		Role client = new Role();
-		DRIVER.setName("CLIENT");
-		roleRepository.save(client);
+		Role CLIENT = new Role();
+		CLIENT.setName("CLIENT");
+		roleRepository.save(CLIENT);
 
 		UserApp adminUser = new UserApp();
 		adminUser.setName("admin");

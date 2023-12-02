@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 
 import javax.persistence.*;
+import java.util.Optional;
 
 @Entity
 @Table(name = "userTab")
@@ -25,4 +26,6 @@ public class UserApp {
     @ManyToOne
     @JoinColumn(name = "role_id")
     private Role role;
+
+
 }

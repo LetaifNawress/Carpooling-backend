@@ -84,6 +84,8 @@ public class AuthController {
 
                 UserApp user = userOptional.get();
 
+
+
                 // Generate the token with the user
                 String token = service.generateToken(userDetails.getUsername(), Long.valueOf(user.getId()));
 
@@ -91,7 +93,7 @@ public class AuthController {
                 Map<String, Object> response = new HashMap<>();
                 response.put("token", token);
                 response.put("userId", user.getId()); // Assuming user.getId() is already a Long
-
+                response.put("role", user.getRole());
 
                 return ResponseEntity.ok(response);
             } else {
