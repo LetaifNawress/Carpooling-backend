@@ -4,6 +4,7 @@ import com.javatechie.dto.AuthRequest;
 import com.javatechie.dto.UserDTO;
 import com.javatechie.entity.Role;
 import com.javatechie.entity.UserApp;
+import com.javatechie.repository.RoleRepository;
 import com.javatechie.repository.UserRepository;
 import com.javatechie.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,8 @@ import java.util.stream.Collectors;
 public class AuthController {
     @Autowired
     private AuthService service;
+    @Autowired
+    private RoleRepository roleRepository;
 
     @Autowired
     private UserRepository userRepository;
@@ -178,5 +181,21 @@ public class AuthController {
             return ResponseEntity.notFound().build();
         }
     }
+    @GetMapping("/drivers")
+    public List<UserApp> getDrivers() {
+        Role driverRole = roleRepository.findByName("DRIVER");
 
+// Finding users by the retrieved role object
+        List<UserApp> drivers = userRepository.findByRole(driverRole);
+        return drivers;
+    }
+
+    @GetMapping("/clients")
+    public List<UserApp> getClients() {
+        Role driverRole = roleRepository.findByName("CLIENT");
+
+// Finding users by the retrieved role object
+        List<UserApp> client = userRepository.findByRole(driverRole);
+        return client;
+    }
 }
