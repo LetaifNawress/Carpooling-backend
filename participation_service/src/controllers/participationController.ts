@@ -13,6 +13,28 @@ export const getParticipations = async (req: Request, res: Response) => {
     return res.status(500).json({ message: err instanceof Error ? err.message : 'Internal Server Error' });
   }
 };
+// Example: Add logs to the getParticipantsByCarpoolingId function
+export const getParticipantsByCarpoolingId = async (req: Request, res: Response) => {
+  const carpoolingId = req.params.id;
+
+  console.log('Carpooling ID:', carpoolingId);
+
+  try {
+    const participants = await Participation.find({ carpoolingID: carpoolingId });
+    console.log('Participants:', participants);
+
+    if (!participants) {
+      return res.status(404).json({ message: 'Participants not found for this carpooling ID' });
+    }
+
+    res.status(200).json(participants);
+  } catch (err) {
+    console.error('Error:', err);
+    res.status(500).json({ message: 'Internal Server Error mech yjib fil donnees ' });
+  }
+};
+
+
 
 // POST - Create a new participation
 export const createParticipation = async (req: Request, res: Response) => {

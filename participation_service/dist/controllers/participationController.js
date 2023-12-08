@@ -32,7 +32,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteParticipation = exports.updateParticipation = exports.getParticipationByIdAndEtat = exports.countParticipationsAnnule = exports.countParticipationsByCarpoolingIDAndEtat = exports.getParticipationById = exports.createParticipation = exports.getParticipations = void 0;
+exports.deleteParticipation = exports.updateParticipation = exports.getParticipationByIdAndEtat = exports.countParticipationsAnnule = exports.countParticipationsByCarpoolingIDAndEtat = exports.getParticipationById = exports.createParticipation = exports.getParticipantsByCarpoolingId = exports.getParticipations = void 0;
 const Participation_1 = __importStar(require("../models/Participation"));
 // GET - Retrieve all participations
 const getParticipations = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -46,6 +46,24 @@ const getParticipations = (req, res) => __awaiter(void 0, void 0, void 0, functi
     }
 });
 exports.getParticipations = getParticipations;
+// Example: Add logs to the getParticipantsByCarpoolingId function
+const getParticipantsByCarpoolingId = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const carpoolingId = req.params.id;
+    console.log('Carpooling ID:', carpoolingId);
+    try {
+        const participants = yield Participation_1.default.find({ carpoolingID: carpoolingId });
+        console.log('Participants:', participants);
+        if (!participants) {
+            return res.status(404).json({ message: 'Participants not found for this carpooling ID' });
+        }
+        res.status(200).json(participants);
+    }
+    catch (err) {
+        console.error('Error:', err);
+        res.status(500).json({ message: 'Internal Server Error mech yjib fil donnees ' });
+    }
+});
+exports.getParticipantsByCarpoolingId = getParticipantsByCarpoolingId;
 // POST - Create a new participation
 const createParticipation = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { clientID, carpoolingID, etat } = req.body;

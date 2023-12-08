@@ -8,6 +8,7 @@ import {
   getParticipationByIdAndEtat,
   countParticipationsByCarpoolingIDAndEtat,
   countParticipationsAnnule,
+  getParticipantsByCarpoolingId,
 } from '../controllers/participationController';
 
 const router = express.Router();
@@ -21,6 +22,6 @@ router.get('/participationAnnuledCount', countParticipationsAnnule);
 
 router.get('/participationEtat', getParticipationByIdAndEtat);
 
-
+router.get('/p/participants/cov/:id', getParticipantsByCarpoolingId); // Updated route definition
 
 export default router;

@@ -14,4 +14,5 @@ router.get('/participation/:id', participationController_1.getParticipationById)
 router.get('/participationCount', participationController_1.countParticipationsByCarpoolingIDAndEtat);
 router.get('/participationAnnuledCount', participationController_1.countParticipationsAnnule);
 router.get('/participationEtat', participationController_1.getParticipationByIdAndEtat);
+router.get('/p/participants/cov/:id', participationController_1.getParticipantsByCarpoolingId); // Updated route definition
 exports.default = router;
