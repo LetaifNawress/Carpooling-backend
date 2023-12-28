@@ -1,29 +1,50 @@
 spring:
- cloud:
-   gateway:
-     routes:
-
-       - id: COVOITURAGE-service
-         uri: lb://COVOITURAGE-SERVICE
-         predicates:
-           - Path=/driver/**
-         filters:
-           - AuthenticationFilter
-
-       - id: identity-service
-         uri: lb://IDENTITY-SERVICE
-         predicates:
-           - Path=/auth/**
-
-       - id: res_service
-         uri: lb://RES_SERVICE
-         predicates:
-           - Path=/participation
-
-application:
-  name: GATEWAY
+  application:
+    name: GATEWAY
+  cloud:
+    gateway:
+      routes:
+        - id: COVOITURAGE-service
+          uri: lb://COVOITURAGE-SERVICE
+          predicates:
+            - Path=/driver/**
+          filters:
+            - AuthenticationFilter
+            - KeycloakPreAuthFilter
+        - id: identity-service
+          uri: lb://IDENTITY-SERVICE
+          predicates:
+            - Path=/auth/**
+            - Path=/login/**
+            - Path=/logout/**
+          filters:
+            - KeycloakPreAuthFilter
+        - id: res_service
+          uri: lb://RES_SERVICE
+          predicates:
+            - Path=/participation/**
+          filters:
+            - KeycloakPreAuthFilter
   allowedOrigins:
     - "http://localhost:4200"
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8080/auth/realms/Wasalni
+          jwk-set-uri: http://localhost:8080/auth/realms/Wasalni/protocol/openid-connect/certs
+    client:
+      provider:
+        keycloak:
+          issuer-uri: http://localhost:8080/auth/realms/Wasalni
+      registration:
+        keycloak:
+          client-id: carpooling_id
+          client-secret: your-client-secret
+          scope: openid, profile, email
+  main:
+    allow-bean-definition-overriding: true
+
 
 eureka:
   client:

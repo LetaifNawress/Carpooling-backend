@@ -66,6 +66,7 @@ public class AuthController {
     public String addNewUser(@RequestBody UserDTO userDTO) {
         String roleName = userDTO.getRoleName();
         UserApp user = new UserApp();
+        user.setId(userDTO.getId());
         user.setName(userDTO.getName());
         user.setEmail(userDTO.getEmail());
         user.setPassword(userDTO.getPassword());

@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="EurekaServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
-    <module name="EurekaService" />
+    <module name="Eureka-service" />
     <option name="SPRING_BOOT_MAIN_CLASS" value="com.javatechie.EurekaServiceApplication" />
     <method v="2">
       <option name="Make" enabled="true" />
