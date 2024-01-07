@@ -40,19 +40,7 @@ public class AuthServiceApplication {
 		CLIENT.setName("CLIENT");
 		roleRepository.save(CLIENT);
 
-		UserApp adminUser = new UserApp();
-		adminUser.setName("admin");
-		adminUser.setEmail("admin@admin.com");
-		adminUser.setPassword(passwordEncoder.encode("123"));
-		adminUser.setRole(adminRole);
-		userRepository.save(adminUser);
 
-		UserApp user = new UserApp();
-		user.setName("naim");
-		user.setEmail("driver@driver.com");
-		user.setPassword(passwordEncoder.encode("123"));
-		user.setRole(DRIVER);
-		userRepository.save(user);
 	}
 }
 

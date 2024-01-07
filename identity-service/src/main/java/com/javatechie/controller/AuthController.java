@@ -71,7 +71,7 @@ public class AuthController {
         user.setEmail(userDTO.getEmail());
         user.setPassword(userDTO.getPassword());
         // Set the profile image only if it's not null
-        if (userDTO.getProfileImage() != null) {
+        if (userDTO.getProfileImage() != null)  {
             user.setProfileImage(userDTO.getProfileImage());
         }
         return service.saveUser(user, roleName);

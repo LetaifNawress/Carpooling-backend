@@ -5,8 +5,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1d20c1ba-afa3-470b-96c3-fb6cab1e72bf" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Driver-service.rar" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/Driver-service.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EurekaService/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../EurekaService/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EurekaService/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../EurekaService/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../gateway/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../gateway/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../identity-service/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../identity-service/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../identity-service/src/main/java/com/javatechie/AuthServiceApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/../identity-service/src/main/java/com/javatechie/AuthServiceApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../identity-service/src/main/java/com/javatechie/controller/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../identity-service/src/main/java/com/javatechie/controller/AuthController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../identity-service/src/main/java/com/javatechie/entity/UserApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/../identity-service/src/main/java/com/javatechie/entity/UserApp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../participation_service/dist/controllers/participationController.js" beforeDir="false" afterPath="$PROJECT_DIR$/../participation_service/dist/controllers/participationController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../participation_service/dist/db/connection.js" beforeDir="false" afterPath="$PROJECT_DIR$/../participation_service/dist/db/connection.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../participation_service/dist/dto/ParticipationDTO.js" beforeDir="false" afterPath="$PROJECT_DIR$/../participation_service/dist/dto/ParticipationDTO.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../participation_service/dist/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../participation_service/dist/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../participation_service/dist/models/Participation.js" beforeDir="false" afterPath="$PROJECT_DIR$/../participation_service/dist/models/Participation.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../participation_service/dist/routes/participationRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/../participation_service/dist/routes/participationRoutes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../participation_service/dist/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/../participation_service/dist/server.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,20 +33,32 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 2
+}</component>
   <component name="ProjectId" id="2YFt5DXd89oKrhKQvZM19DYp60x" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "E:/DSI31/les micros service/identity-service",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/wasalni final/Driver-service&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="DriverServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="Driver-service" />
@@ -49,6 +78,9 @@
       <updated>1700132969950</updated>
       <workItem from="1700132971132" duration="46000" />
       <workItem from="1701300491688" duration="12000" />
+      <workItem from="1704663377304" duration="853000" />
+      <workItem from="1704665497455" duration="34000" />
+      <workItem from="1704665547209" duration="1749000" />
     </task>
     <servers />
   </component>
